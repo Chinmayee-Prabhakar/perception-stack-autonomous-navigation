@@ -1,0 +1,6 @@
+{
+  "weights": "models/yolo11n-seg.pt",
+  "confidence": 0.25,
+  "image_size": 640,
+  "device": "cpu"
+}
