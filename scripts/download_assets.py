@@ -1,8 +1,11 @@
 """Fetch ignored demo assets from stable upstream URLs; print hashes for provenance."""
 
+import argparse
 from hashlib import sha256
 from pathlib import Path
 from urllib.request import urlopen
+
+from perception_stack.depth_assets import CHECKPOINT_PATH, CHECKPOINT_URL, download_depth_checkpoint
 
 
 ASSETS = {
@@ -18,7 +21,12 @@ ASSETS = {
 
 
 def main() -> None:
-    for path, (url, expected_digest) in ASSETS.items():
+    parser = argparse.ArgumentParser(description="Download verified, ignored demo/model assets")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--depth", action="store_true", help="download only the metric VKITTI Small checkpoint")
+    selection.add_argument("--all", action="store_true", help="download the existing assets and metric checkpoint")
+    args = parser.parse_args()
+    for path, (url, expected_digest) in (() if args.depth else ASSETS.items()):
         path.parent.mkdir(parents=True, exist_ok=True)
         if not path.is_file():
             temporary = path.with_suffix(path.suffix + ".part")
@@ -33,6 +41,10 @@ def main() -> None:
         if digest != expected_digest:
             raise ValueError(f"Unexpected SHA-256 for {path}: {digest}")
         print(f"{path}: {path.stat().st_size} bytes; sha256={digest}; source={url}")
+    if args.depth or args.all:
+        digest = download_depth_checkpoint()
+        print(f"{CHECKPOINT_PATH}: {CHECKPOINT_PATH.stat().st_size} bytes; "
+              f"sha256={digest}; source={CHECKPOINT_URL}")
 
 
 if __name__ == "__main__":

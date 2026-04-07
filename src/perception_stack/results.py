@@ -1,6 +1,7 @@
 """Stable, model-independent 2D detection and mask result structures."""
 
 from dataclasses import dataclass
+from typing import Mapping
 
 import numpy as np
 
@@ -104,4 +105,80 @@ class FrameDetections:
                 }
                 for d in self.detections
             ],
+        }
+
+
+@dataclass(frozen=True)
+class FrameDepth:
+    """Original-frame visible-surface estimate of forward camera-axis Z in meters."""
+
+    frame_id: str
+    image_size: tuple[int, int]
+    depth_m: np.ndarray
+    valid_mask: np.ndarray
+    model_id: str
+    checkpoint_sha256: str
+    device: str
+    input_size: int
+    preprocessing: Mapping[str, object]
+    units: str = "meters"
+    depth_convention: str = "camera_axis_z"
+    nominal_max_depth_m: float = 80.0
+
+    def __post_init__(self) -> None:
+        width, height = self.image_size
+        depth = np.asarray(self.depth_m)
+        valid = np.asarray(self.valid_mask)
+        if width <= 0 or height <= 0 or not self.frame_id or not self.model_id:
+            raise ValueError("Frame depth requires positive size, frame ID and model ID")
+        if depth.shape != (height, width) or depth.dtype != np.float32:
+            raise ValueError("depth_m must be an original-resolution HxW float32 array")
+        if valid.shape != depth.shape or valid.dtype != np.bool_:
+            raise ValueError("valid_mask must be an original-resolution HxW boolean array")
+        if not np.array_equal(valid, np.isfinite(depth) & (depth > 0)):
+            raise ValueError("valid_mask must mark exactly finite, positive depth values")
+        if self.units != "meters" or self.depth_convention != "camera_axis_z":
+            raise ValueError("This depth contract requires meters of camera-axis Z")
+        if len(self.checkpoint_sha256) != 64 or any(c not in "0123456789abcdef" for c in self.checkpoint_sha256):
+            raise ValueError("checkpoint_sha256 must be lowercase hexadecimal SHA-256")
+        if self.device not in {"cpu", "cuda"} or self.input_size < 14:
+            raise ValueError("Invalid execution device or input size")
+        if self.nominal_max_depth_m <= 0:
+            raise ValueError("nominal_max_depth_m must be positive")
+        owned_depth = np.array(depth, copy=True, order="C")
+        owned_valid = np.array(valid, copy=True, order="C")
+        owned_depth.flags.writeable = False
+        owned_valid.flags.writeable = False
+        object.__setattr__(self, "depth_m", owned_depth)
+        object.__setattr__(self, "valid_mask", owned_valid)
+        object.__setattr__(self, "preprocessing", dict(self.preprocessing))
+
+    def to_summary(self) -> dict:
+        values = self.depth_m[self.valid_mask]
+        near_cap = values >= 0.99 * self.nominal_max_depth_m
+        return {
+            "frame_id": self.frame_id,
+            "image_size": list(self.image_size),
+            "model_id": self.model_id,
+            "checkpoint_sha256": self.checkpoint_sha256,
+            "device": self.device,
+            "input_size": self.input_size,
+            "units": self.units,
+            "depth_convention": self.depth_convention,
+            "depth_reference": "predicted_visible_surface",
+            "dtype": str(self.depth_m.dtype),
+            "validity_rule": "finite and > 0 meters; near-cap values remain valid",
+            "nominal_max_depth_m": self.nominal_max_depth_m,
+            "near_cap_threshold_m": 0.99 * self.nominal_max_depth_m,
+            "preprocessing": dict(self.preprocessing),
+            "valid_pixels": int(values.size),
+            "valid_fraction": float(values.size / self.depth_m.size),
+            "near_cap_pixels": int(near_cap.sum()),
+            "near_cap_percent_of_valid": float(100 * near_cap.mean()) if values.size else 0.0,
+            "valid_depth_m": {
+                "min": float(values.min()) if values.size else None,
+                "median": float(np.median(values)) if values.size else None,
+                "mean": float(values.mean()) if values.size else None,
+                "max": float(values.max()) if values.size else None,
+            },
         }
