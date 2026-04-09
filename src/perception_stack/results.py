@@ -182,3 +182,55 @@ class FrameDepth:
                 "max": float(values.max()) if values.size else None,
             },
         }
+
+
+@dataclass(frozen=True)
+class FrameRoadSegmentation:
+    """Original-frame binary drivable-area and lane-marking predictions."""
+
+    frame_id: str
+    image_size: tuple[int, int]
+    drivable_area_mask: np.ndarray
+    lane_marking_mask: np.ndarray
+    model_id: str
+    checkpoint_id: str
+    checkpoint_sha256: str
+    device: str
+    preprocessing: Mapping[str, object]
+
+    def __post_init__(self) -> None:
+        width, height = self.image_size
+        if width <= 0 or height <= 0 or not self.frame_id or not self.model_id or not self.checkpoint_id:
+            raise ValueError("Road segmentation requires positive size and nonempty identifiers")
+        for name in ("drivable_area_mask", "lane_marking_mask"):
+            mask = np.asarray(getattr(self, name))
+            if mask.shape != (height, width) or mask.dtype != np.bool_:
+                raise ValueError(f"{name} must be an original-resolution HxW boolean array")
+            owned = np.array(mask, copy=True, order="C")
+            owned.flags.writeable = False
+            object.__setattr__(self, name, owned)
+        if len(self.checkpoint_sha256) != 64 or any(c not in "0123456789abcdef" for c in self.checkpoint_sha256):
+            raise ValueError("checkpoint_sha256 must be lowercase hexadecimal SHA-256")
+        if self.device not in {"cpu", "cuda"}:
+            raise ValueError("Road segmentation device must be cpu or cuda")
+        object.__setattr__(self, "preprocessing", dict(self.preprocessing))
+
+    def to_summary(self) -> dict:
+        height, width = self.drivable_area_mask.shape
+        return {
+            "frame_id": self.frame_id,
+            "image_size": [width, height],
+            "model_id": self.model_id,
+            "checkpoint_id": self.checkpoint_id,
+            "checkpoint_sha256": self.checkpoint_sha256,
+            "device": self.device,
+            "mask_semantics": {
+                "drivable_area": "binary BDD100K drivable-area foreground, not all road surface",
+                "lane_marking": "binary lane-marking pixels, not fitted boundaries or centerlines",
+            },
+            "preprocessing": dict(self.preprocessing),
+            "drivable_area_pixels": int(self.drivable_area_mask.sum()),
+            "drivable_area_fraction": float(self.drivable_area_mask.mean()),
+            "lane_marking_pixels": int(self.lane_marking_mask.sum()),
+            "lane_marking_fraction": float(self.lane_marking_mask.mean()),
+        }

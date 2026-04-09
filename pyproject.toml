@@ -22,12 +22,14 @@ dev = ["pytest>=8,<10"]
 [project.scripts]
 perception-demo = "perception_stack.cli:main"
 perception-depth-demo = "perception_stack.depth_cli:main"
+perception-road-demo = "perception_stack.road_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
 "perception_stack._vendor.depth_anything_v2_metric" = ["LICENSE"]
+"perception_stack._vendor.twinlite_net_plus" = ["LICENSE"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

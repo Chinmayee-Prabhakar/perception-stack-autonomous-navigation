@@ -6,6 +6,11 @@ from pathlib import Path
 from urllib.request import urlopen
 
 from perception_stack.depth_assets import CHECKPOINT_PATH, CHECKPOINT_URL, download_depth_checkpoint
+from perception_stack.road_assets import (
+    CHECKPOINT_PATH as ROAD_CHECKPOINT_PATH,
+    CHECKPOINT_URL as ROAD_CHECKPOINT_URL,
+    download_road_checkpoint,
+)
 
 
 ASSETS = {
@@ -24,9 +29,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Download verified, ignored demo/model assets")
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--depth", action="store_true", help="download only the metric VKITTI Small checkpoint")
-    selection.add_argument("--all", action="store_true", help="download the existing assets and metric checkpoint")
+    selection.add_argument("--road", action="store_true", help="download only the TwinLiteNetPlus Small checkpoint")
+    selection.add_argument("--all", action="store_true", help="download all demo assets and checkpoints")
     args = parser.parse_args()
-    for path, (url, expected_digest) in (() if args.depth else ASSETS.items()):
+    for path, (url, expected_digest) in (() if args.depth or args.road else ASSETS.items()):
         path.parent.mkdir(parents=True, exist_ok=True)
         if not path.is_file():
             temporary = path.with_suffix(path.suffix + ".part")
@@ -45,6 +51,10 @@ def main() -> None:
         digest = download_depth_checkpoint()
         print(f"{CHECKPOINT_PATH}: {CHECKPOINT_PATH.stat().st_size} bytes; "
               f"sha256={digest}; source={CHECKPOINT_URL}")
+    if args.road or args.all:
+        digest = download_road_checkpoint()
+        print(f"{ROAD_CHECKPOINT_PATH}: {ROAD_CHECKPOINT_PATH.stat().st_size} bytes; "
+              f"sha256={digest}; source={ROAD_CHECKPOINT_URL}")
 
 
 if __name__ == "__main__":
