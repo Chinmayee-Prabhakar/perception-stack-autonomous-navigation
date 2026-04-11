@@ -1,8 +1,8 @@
 # perception-stack
 
-Modular research pipeline for autonomous-navigation perception. **Milestone 1** runs COCO-pretrained instance segmentation on one RGB image. **Milestone 2** independently estimates dense outdoor metric depth with the official Depth Anything V2 Metric VKITTI Small checkpoint. **Milestone 3** independently predicts drivable-area and lane-marking masks with TwinLiteNetPlus Small. Object-depth fusion, 3D localization, and evaluation remain planned in [PROJECT_PLAN.md](PROJECT_PLAN.md).
+Modular research pipeline for autonomous-navigation perception. **Milestone 1** runs COCO-pretrained instance segmentation on one RGB image. **Milestone 2** independently estimates dense outdoor metric depth with the official Depth Anything V2 Metric VKITTI Small checkpoint. **Milestone 3** independently predicts drivable-area and lane-marking masks with TwinLiteNetPlus Small. **Milestone 4** compares box and instance-mask depth sampling and optionally backprojects an actual sampled surface pixel when verified rectified intrinsics are supplied. KITTI evaluation remains planned in [PROJECT_PLAN.md](PROJECT_PLAN.md).
 
-Repository layout: `src/perception_stack/frame.py` defines shared input; `results.py` defines model-independent detections, depth, and road/lane masks; `detectors/`, `depth/`, and `road/` hold separate adapters; their CLI modules run independent demos; `configs/`, `scripts/`, and `tests/` hold settings, asset setup, and contract tests. Generated files go to ignored `outputs/`.
+Repository layout: `src/perception_stack/frame.py` defines shared input; `results.py` defines model-independent detections, depth, and road/lane masks; `detectors/`, `depth/`, and `road/` hold separate adapters; `fusion/` contains paired sampling, typed results, and geometry; CLI modules run demos; `configs/`, `scripts/`, and `tests/` hold settings, asset setup, and contract tests. Generated files go to ignored `outputs/`.
 
 ## Windows setup (PowerShell)
 
@@ -86,3 +86,25 @@ Project-authored Markdown uses milestone labels and technical topics rather than
 The primary research extension compares instance-mask and box-region depth sampling. This project was inspired by [Project 3, “Einstein Vision,”](https://rbe549.github.io/spring2023/proj/p3/) from WPI's RBE/CS 549 Computer Vision course, taught by Prof. Nitin J. Sanket.
 
 Ultralytics code and pretrained models use [AGPL-3.0 or an enterprise license](https://docs.ultralytics.com/help/contributing/). Review the applicable license before distributing or deploying a combined application.
+
+## Milestone 4: paired object-depth fusion
+
+Run from the repository root after the existing detector and metric-depth checkpoints have been downloaded:
+
+```powershell
+.\.venv\Scripts\python.exe -m perception_stack.fusion_cli --input data\examples\bus.jpg --json outputs\bus_fusion.json --output outputs\bus_fusion_overlay.png --device cpu
+.\.venv\Scripts\python.exe -m pytest -q
+$env:PERCEPTION_RUN_INTEGRATION = '1'
+.\.venv\Scripts\python.exe -m pytest -q tests\test_depth_integration.py tests\test_road_integration.py tests\test_fusion_integration.py
+Remove-Item Env:\PERCEPTION_RUN_INTEGRATION
+```
+
+Both methods use the same `FrameDetections`, `FrameDepth`, finite-positive validity mask, estimator, and thresholds. A clipped float box contains pixel center `(u,v)` iff `x1 <= u < x2` and `y1 <= v < y2`, with integer pixel centers and `(0,0)` at the top-left pixel center. The mask method samples `instance_mask AND box`; a missing or empty mask is explicitly unavailable. The primary representative depth is the **median of valid camera-axis Z values in meters**. Default acceptance requires at least **3 valid pixels** and **10% valid fraction** of the sampling region, fixed independently of evaluation labels. One- or two-pixel and sparse samples retain diagnostics and are marked unavailable; `--min-valid-pixels` and `--min-valid-fraction` expose this fixed policy for deliberate experiments. Invalid values are never converted to zeros. The JSON reports median, mean, min/max, population standard deviation, IQR, MAD, region and valid counts, valid fraction, near-cap count/fraction (Z >= 0.99×80 m), status and reason.
+
+A separate selected ray uses an **actual valid pixel**. Among valid region pixels, choose depth closest to the region median; break ties by squared image distance to the centroid of all region pixel centers, then smaller `v`, then smaller `u`. The selected pixel's actual depth can differ from the aggregate median. Box and mask methods use the same rule. The point denotes an estimated visible scene surface, never a KITTI 3D box center or bottom-center. The default bus run supplies no camera intrinsics, so it reports pixels and Z values but sets 3D camera coordinates to unavailable.
+
+For a trusted rectified pinhole camera, `--intrinsics-json` may supply `width,height,fx,fy,cx,cy,rectified:true,provenance`. The resolution must match the image; a raw KITTI `P2` is rejected because its translation and coordinate origin need an explicit calibration chain. Pixel centers use integer `(u,v)`. The camera axes are `X` right, `Y` down, `Z` forward, with `X=(u-cx)Z/fx`, `Y=(v-cy)Z/fy`, and radial range `sqrt(X²+Y²+Z²)` reported separately. The program records the user-supplied provenance; it cannot independently authenticate a calibration file. Do not fabricate intrinsics for `bus.jpg`.
+
+The demo JSON includes detector/depth checkpoint hashes, model IDs, depth preprocessing, configuration, object-level statistics, selected rays, explicit unavailable fields, and optional surface points. The overlay shows boxes, class/confidence, both median Z values, and selected-ray markers. Detections are inferred before the depth model is loaded, reducing simultaneous model residency on the CPU path. The fusion does not use the road/lane predictions yet.
+
+Observed box-minus-mask differences on the unlabeled bus photo are **prediction differences**, not an accuracy comparison. VKITTI-to-real domain shift, occluded/background pixels inside masks, incomplete or noisy masks, small-object sparsity, depth saturation, and lack of calibrated monocular uncertainty can all affect these estimates. Future KITTI research needs declared paired matching, class mapping, held-out splits, calibration, and a common object-reference convention. The M3 lane-boundary false positives and possible first/last 12 training-loss-row reliability concern remain under review; approved landscape-road validation is pending. Blender remains optional after core evaluation.
