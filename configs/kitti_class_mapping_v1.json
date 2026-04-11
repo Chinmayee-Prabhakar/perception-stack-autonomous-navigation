@@ -1,0 +1,8 @@
+{
+  "version": "kitti-coco-conservative-v1",
+  "coco_to_kitti": {"car": "Car", "person": "Pedestrian"},
+  "ignored_kitti_categories": ["Van", "Truck", "Tram", "Misc", "Person_sitting", "Cyclist", "DontCare"],
+  "unsupported_coco_policy": "count_and_ignore_without_remapping",
+  "ignored_reference_overlap_policy": "after eligible matching, exclude eligible detections with intersection_over_detection_area >= 0.50 against DontCare or ignored KITTI boxes",
+  "note": "Bicycle, bus, truck, motorcycle and other COCO classes are not silently remapped."
+}
