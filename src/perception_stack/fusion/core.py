@@ -7,6 +7,7 @@ import numpy as np
 from perception_stack.frame import Frame
 from perception_stack.results import BoxXYXY, FrameDepth, FrameDetections
 from .geometry import backproject_pixel
+from .source import detector_input_fingerprint
 from .results import (
     DepthSamplingStatistics, FrameFusionResults, FusionConfig, MethodFusion,
     ObjectDepthFusion, SurfaceSample,
@@ -143,4 +144,5 @@ def fuse_frame(
         depth.model_id, depth.checkpoint_sha256, depth.device, depth.input_size,
         deepcopy(dict(depth.preprocessing)), calibration_provenance, calibration_status,
         config, tuple(objects),
+        detector_input_fingerprint(detections, detector_checkpoint_sha256),
     )

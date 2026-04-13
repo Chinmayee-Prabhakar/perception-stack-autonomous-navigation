@@ -4,8 +4,11 @@ from copy import deepcopy
 from dataclasses import dataclass
 import json
 import math
+from types import MappingProxyType
+from typing import Mapping
 
 from perception_stack.results import BoxXYXY
+from .source import DETECTOR_INPUT_SCHEMA
 
 
 @dataclass(frozen=True)
@@ -143,21 +146,37 @@ class FrameFusionResults:
     depth_checkpoint_sha256: str
     depth_device: str
     depth_input_size: int
-    depth_preprocessing: dict
+    depth_preprocessing: Mapping
     calibration_provenance: str | None
     calibration_status: str
     config: FusionConfig
     objects: tuple[ObjectDepthFusion, ...]
+    detector_input_fingerprint_sha256: str | None = None
+
+    def __post_init__(self) -> None:
+        # Freeze nested model metadata so callers cannot alter a completed M4
+        # result through a shared list/dictionary after inference.
+        def freeze(value):
+            if isinstance(value, Mapping):
+                return MappingProxyType({key: freeze(item) for key, item in value.items()})
+            if isinstance(value, (list, tuple)):
+                return tuple(freeze(item) for item in value)
+            return deepcopy(value)
+
+        object.__setattr__(self, "depth_preprocessing", freeze(self.depth_preprocessing))
+        object.__setattr__(self, "objects", tuple(self.objects))
 
     def to_dict(self) -> dict:
         return {
             "frame_id": self.frame_id, "image_size": list(self.image_size),
             "detector_model_id": self.detector_model_id,
             "detector_checkpoint_sha256": self.detector_checkpoint_sha256,
+            "detector_input_fingerprint_schema": DETECTOR_INPUT_SCHEMA if self.detector_input_fingerprint_sha256 else None,
+            "detector_input_fingerprint_sha256": self.detector_input_fingerprint_sha256,
             "depth_model_id": self.depth_model_id,
             "depth_checkpoint_sha256": self.depth_checkpoint_sha256,
             "depth_device": self.depth_device, "depth_input_size": self.depth_input_size,
-            "depth_preprocessing": deepcopy(self.depth_preprocessing),
+            "depth_preprocessing": json.loads(json.dumps(self.depth_preprocessing, default=_json_metadata)),
             "calibration_provenance": self.calibration_provenance,
             "calibration_status": self.calibration_status,
             "config": self.config.to_dict(),
@@ -166,3 +185,11 @@ class FrameFusionResults:
 
     def to_json(self) -> str:
         return json.dumps(self.to_dict(), indent=2, sort_keys=True, allow_nan=False) + "\n"
+
+
+def _json_metadata(value):
+    if isinstance(value, Mapping):
+        return dict(value)
+    if isinstance(value, tuple):
+        return list(value)
+    raise TypeError(f"Unsupported metadata value: {type(value).__name__}")
