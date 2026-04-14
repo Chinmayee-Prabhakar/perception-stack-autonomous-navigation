@@ -1,0 +1,14 @@
+{
+  "schema": "demo_hardening_assets_v1",
+  "files": {
+    "models/yolo11n-seg.pt": "55ed65c56c91713d23e8402371c6c49a6fd84f257f7dce452e8d70e41dcbe152",
+    "models/depth_anything_v2_metric_vkitti_vits.pth": "9203e538d35255c90dda4b7fedb47ff33fe725497bcca3b1e53b3a65ee63f0cb",
+    "models/twinlitenetplus_bdd100k_small.pth": "0dd3bd7356a5b70e1d21ae60cd09b55641b48bde738393177f94daff17ab6360",
+    "configs/demo.json": "eb6269f56822c208200dab9f8cd0596192c490dba1dde1d36d9759f17b2d772b",
+    "configs/demo_hardening/selection.json": "f5d9ae4ef91e57332da18590ebdb0cc5b99260b3f1d9fe8c6611ccb94191e0de",
+    "configs/demo_hardening/006781_intrinsics.json": "6dfc07dd8967d901c136e5ed3c2476952e212cd0e05308ca3372049dcd157dee",
+    "configs/demo_hardening/006781_derivation.json": "fc17c7bc19a348673491e58ce85ba69cadd9109e9bd6d53e79e8fba45dd7b3b1",
+    "configs/demo_hardening/expected_results.json": "fbd1ec9e0c2fd706129ad051c42212ec391cd0775981e46e0b73b8239f7cb023",
+    "configs/demo_hardening/presentation_r2.json": "ee249ea4a1ed104a139858004c618134c5d90dbfbb426be5a8385fa389fa2022"
+  }
+}

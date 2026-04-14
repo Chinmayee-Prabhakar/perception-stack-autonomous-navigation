@@ -1,0 +1,129 @@
+{
+  "frames": [
+    {
+      "eligible_car_annotations": 6,
+      "eligible_pedestrian_annotations": 0,
+      "far_annotations_z_at_least_35m": 1,
+      "frame_id": "006263",
+      "heavily_occluded_annotations": 1,
+      "image_bytes": 877170,
+      "image_sha256": "151fa176dc3ce92b8ea54b1eb03bb50e34f7d6660d809965e404c871e019290a",
+      "image_size": [
+        1242,
+        375
+      ],
+      "near_annotations_z_below_15m": 1,
+      "rationale": "multi_vehicle_near_far",
+      "source_member": "training/image_2/006263.png",
+      "truncated_annotations_at_least_half": 0
+    },
+    {
+      "eligible_car_annotations": 8,
+      "eligible_pedestrian_annotations": 2,
+      "far_annotations_z_at_least_35m": 4,
+      "frame_id": "000201",
+      "heavily_occluded_annotations": 2,
+      "image_bytes": 853115,
+      "image_sha256": "3bd486a5fb45f2b31845d306536f9c0daec2c9e0378724bb81bc0b2952863b95",
+      "image_size": [
+        1242,
+        375
+      ],
+      "near_annotations_z_below_15m": 3,
+      "rationale": "pedestrians_with_vehicles",
+      "source_member": "training/image_2/000201.png",
+      "truncated_annotations_at_least_half": 1
+    },
+    {
+      "eligible_car_annotations": 8,
+      "eligible_pedestrian_annotations": 0,
+      "far_annotations_z_at_least_35m": 0,
+      "frame_id": "006781",
+      "heavily_occluded_annotations": 3,
+      "image_bytes": 685306,
+      "image_sha256": "fdb6e131042d2e4d738e828910b41dafc7687aaf9fcba371d6113cef6936d154",
+      "image_size": [
+        1241,
+        376
+      ],
+      "near_annotations_z_below_15m": 2,
+      "rationale": "occlusion",
+      "source_member": "training/image_2/006781.png",
+      "truncated_annotations_at_least_half": 1
+    },
+    {
+      "eligible_car_annotations": 3,
+      "eligible_pedestrian_annotations": 0,
+      "far_annotations_z_at_least_35m": 1,
+      "frame_id": "003783",
+      "heavily_occluded_annotations": 0,
+      "image_bytes": 906509,
+      "image_sha256": "222df6ec8abbb9b4ff9563c5779aca1d47c88425fa4fbeadcfb598914ebed746",
+      "image_size": [
+        1242,
+        375
+      ],
+      "near_annotations_z_below_15m": 0,
+      "rationale": "small_distant_objects",
+      "source_member": "training/image_2/003783.png",
+      "truncated_annotations_at_least_half": 0
+    },
+    {
+      "eligible_car_annotations": 10,
+      "eligible_pedestrian_annotations": 0,
+      "far_annotations_z_at_least_35m": 2,
+      "frame_id": "005481",
+      "heavily_occluded_annotations": 5,
+      "image_bytes": 835904,
+      "image_sha256": "91ca5d9593ee1a4b842f234234798a1a06f914efe2c1681f19e3e94faf23c88a",
+      "image_size": [
+        1242,
+        375
+      ],
+      "near_annotations_z_below_15m": 3,
+      "rationale": "truncation",
+      "source_member": "training/image_2/005481.png",
+      "truncated_annotations_at_least_half": 2
+    },
+    {
+      "eligible_car_annotations": 6,
+      "eligible_pedestrian_annotations": 0,
+      "far_annotations_z_at_least_35m": 2,
+      "frame_id": "000185",
+      "heavily_occluded_annotations": 0,
+      "image_bytes": 894822,
+      "image_sha256": "9dc0d7bc9798629587a7080365e51472a3b1c22feac4d0c0699639e9b7359a44",
+      "image_size": [
+        1242,
+        375
+      ],
+      "near_annotations_z_below_15m": 3,
+      "rationale": "mixed_near_far",
+      "source_member": "training/image_2/000185.png",
+      "truncated_annotations_at_least_half": 1
+    },
+    {
+      "eligible_car_annotations": 10,
+      "eligible_pedestrian_annotations": 0,
+      "far_annotations_z_at_least_35m": 2,
+      "frame_id": "007200",
+      "heavily_occluded_annotations": 1,
+      "image_bytes": 897350,
+      "image_sha256": "751257846d151f944fa6bf5381f804f790522d1c74df698489fd7c099d44cfe0",
+      "image_size": [
+        1242,
+        375
+      ],
+      "near_annotations_z_below_15m": 3,
+      "rationale": "lowest_thumbnail_luminance_in_fixed_40_candidate_pool",
+      "source_member": "training/image_2/007200.png",
+      "truncated_annotations_at_least_half": 1
+    }
+  ],
+  "frozen_split_manifest_sha256": "91d81d8600c8c66994e64a6aeb32756d7bb86762138d2959633b665c2e8b464b",
+  "lighting_candidate_thumbnail_mean_gray": 78.70865885416667,
+  "purpose": "fixed input-only selection before model predictions",
+  "selection_rule": "Outside all frozen M5 development and held-out IDs. For each annotation category, select the lexicographically first SHA-256(D0-selection-v1:frame_id) candidate not previously selected. Lighting candidate is lowest 96x32 grayscale mean among first 40 SHA-256(D0-light-v1:frame_id) candidates with at least 3 valid Car/Pedestrian labels. No model output used.",
+  "source_archive_bytes": 12569945557,
+  "source_archive_name": "data_object_image_2.zip"
+}

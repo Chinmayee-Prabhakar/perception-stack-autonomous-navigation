@@ -5,6 +5,7 @@ import json
 
 import numpy as np
 import pytest
+from PIL import Image, ImageDraw
 
 from perception_stack.frame import Frame
 from perception_stack.fusion import fuse_frame
@@ -12,7 +13,10 @@ from perception_stack.fusion.results import SurfacePoint
 from perception_stack.results import FrameDepth
 from perception_stack.scene import associate_road, build_scene
 from perception_stack.scene.synthetic import synthetic_scene
-from perception_stack.scene.visualization import metric_xz_data, render_metric_xz, render_scene_overlay
+from perception_stack.scene.visualization import (
+    _font, metric_xz_data, render_metric_xz, render_scene_overlay,
+    render_scene_presentation, scene_presentation_data, scene_presentation_layout,
+)
 
 
 def test_synthetic_geometry_and_metric_axis_convention(tmp_path):
@@ -21,6 +25,14 @@ def test_synthetic_geometry_and_metric_axis_convention(tmp_path):
     data = metric_xz_data(scene)
     assert data["x_axis"] == "Camera X right (m)"
     assert data["z_axis"] == "Camera Z forward (m)"
+    assert "Rectified camera-centered" in data["title"]
+    camera2 = metric_xz_data(replace(scene, fusion=replace(
+        scene.fusion, calibration_provenance="KITTI image_2 rectified camera-2 intrinsics")))
+    assert camera2["x_axis"] == "Camera-2 X right (m)"
+    assert camera2["z_axis"] == "Camera-2 Z forward (m)"
+    assert "Rectified camera-2-centered" in camera2["title"]
+    assert "not object centers" in data["interpretation"]
+    assert "not radial range" in data["interpretation"]
     assert data["origin_xz_m"] == [0, 0] and data["aspect"] == "equal_metric"
     assert [(item["x_m"], item["z_m"]) for item in data["points"]] == [(-5, 10), (10, 20)]
     assert geometry["expected_camera_xz_m"] == [[-5, 10], [10, 20]]
@@ -88,6 +100,61 @@ def test_overlay_alignment_transparency_and_empty_detections():
     assert empty_scene.metric_xz_status == "unavailable_no_calibrated_surface_points"
     with pytest.raises(ValueError):
         render_scene_overlay(Frame(np.zeros((80, 100, 3), np.uint8), "wrong"), det, road, scene)
+
+
+def test_presentation_keeps_camera_pixels_and_explains_semantics():
+    frame, det, road, scene, _ = synthetic_scene()
+    overlay = render_scene_overlay(frame, det, road, scene)
+    presentation = render_scene_presentation(frame, det, road, scene)
+    assert presentation.width >= frame.size[0] and presentation.height > frame.size[1]
+    assert np.array_equal(np.asarray(presentation)[:frame.size[1], :frame.size[0]], np.asarray(overlay))
+    data = scene_presentation_data(scene)
+    assert [row["id"] for row in data["rows"]] == list(range(len(det.detections)))
+    assert "predicted drivable area" in data["mask_legend"][0]
+    assert "predicted lane-marking pixels" in data["mask_legend"][1]
+    assert all(word in data["adjacency_legend"] for word in (
+        "Predicted image-space road adjacency", "Road-adjacent (+)",
+        "Not road-adjacent (−)", "Insufficient evidence (?)"))
+    assert "predicted drivable-area pixels" in data["adjacency_method"]
+    assert "bounding box" in data["adjacency_method"]
+    assert all(word in data["limitation"] for word in (
+        "physical road contact", "safely on/off the road", "occupancy", "collision safety"))
+    measure = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+    for line in (data["adjacency_legend"], data["adjacency_method"], data["limitation"]):
+        assert measure.textbbox((0, 0), line, font=_font(15))[2] < presentation.width - 12
+    assert render_scene_presentation(frame, det, road, scene).tobytes() == presentation.tobytes()
+
+
+@pytest.mark.parametrize("status,label", [
+    ("drivable_adjacency_detected", "Road-adjacent (+)"),
+    ("drivable_adjacency_not_detected", "Not road-adjacent (−)"),
+    *[(status, "Insufficient evidence (?)") for status in (
+        "unknown_truncated", "unknown_occluded", "unknown_image_boundary",
+        "unknown_invalid_region", "unknown_insufficient_coverage",
+        "unknown_insufficient_evidence")],
+])
+def test_presentation_labels_keep_internal_evidence_status(status, label):
+    _, _, _, scene, _ = synthetic_scene()
+    changed = replace(scene, objects=(replace(scene.objects[0], road=replace(
+        scene.objects[0].road, evidence_status=status)), *scene.objects[1:]))
+    assert scene_presentation_data(changed)["rows"][0]["adjacency"] == label
+    assert changed.objects[0].road.evidence_status == status
+
+
+def test_shallow_dense_scene_layout_and_invalid_dimensions():
+    layout = scene_presentation_layout((1242, 375), 12)
+    assert layout["columns"] == 2 and layout["rows_per_column"] == 6
+    assert layout["canvas_size"] == (1242, 691)
+    # The longest status plus a two-digit ID and pedestrian depth row fits one column.
+    label = "#11 pedestrian 0.99  B:79.2 M:79.2  Insufficient evidence (?)"
+    text_width = ImageDraw.Draw(Image.new("RGB", (1, 1))).textbbox(
+        (0, 0), label, font=_font(15))[2]
+    assert 12 + 14 + text_width < layout["canvas_size"][0] // layout["columns"]
+    assert scene_presentation_layout((1242, 375), 0)["rows_per_column"] == 1
+    with pytest.raises(ValueError):
+        scene_presentation_layout((0, 375), 12)
+    with pytest.raises(ValueError):
+        scene_presentation_layout((1242, 375), -1)
 
 
 def test_result_alignment_invalid_values_and_metadata_ownership():

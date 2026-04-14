@@ -17,7 +17,7 @@ from perception_stack.fusion_cli import _sha256, load_rectified_intrinsics
 from perception_stack.road import TwinLiteRoadSegmenter
 from perception_stack.road_assets import CHECKPOINT_PATH as ROAD_CHECKPOINT_PATH
 from perception_stack.scene import ContactPolicy, associate_road, build_scene
-from perception_stack.scene.visualization import render_metric_xz, render_scene_overlay
+from perception_stack.scene.visualization import render_metric_xz, render_scene_presentation
 
 
 LOGGER = logging.getLogger(__name__)
@@ -28,6 +28,8 @@ def main() -> None:
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--json", type=Path, default=Path("outputs/scene.json"))
     parser.add_argument("--overlay", type=Path, default=Path("outputs/scene_overlay.png"))
+    parser.add_argument("--drivable-mask", type=Path, help="optional exact predicted drivable mask PNG")
+    parser.add_argument("--lane-mask", type=Path, help="optional exact predicted lane-marking mask PNG")
     parser.add_argument("--association-json", type=Path, default=Path("outputs/scene_road_association.json"))
     parser.add_argument("--xz-plot", type=Path, default=Path("outputs/scene_xz.png"))
     parser.add_argument("--config", type=Path, default=Path("configs/demo.json"))
@@ -79,7 +81,17 @@ def main() -> None:
     scene = build_scene(frame, detections, road, fusion, associations)
     for path in (args.json, args.overlay, args.association_json):
         path.parent.mkdir(parents=True, exist_ok=True)
-    render_scene_overlay(frame, detections, road, scene).save(args.overlay)
+    render_scene_presentation(frame, detections, road, scene).save(args.overlay)
+    if args.drivable_mask:
+        from PIL import Image
+        import numpy as np
+        args.drivable_mask.parent.mkdir(parents=True, exist_ok=True)
+        Image.fromarray(np.uint8(road.drivable_area_mask) * 255, "L").save(args.drivable_mask)
+    if args.lane_mask:
+        from PIL import Image
+        import numpy as np
+        args.lane_mask.parent.mkdir(parents=True, exist_ok=True)
+        Image.fromarray(np.uint8(road.lane_marking_mask) * 255, "L").save(args.lane_mask)
     args.association_json.write_text(json.dumps(associations.to_dict(), indent=2,
                                                 sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
     xz_path = None

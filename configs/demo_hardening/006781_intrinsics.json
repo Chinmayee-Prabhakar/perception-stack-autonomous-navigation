@@ -1,0 +1,10 @@
+{
+  "cx": 607.1928,
+  "cy": 185.2157,
+  "fx": 718.856,
+  "fy": 718.856,
+  "height": 376,
+  "provenance": "KITTI Object training/calib/006781.txt: image_2 rectified camera-2 intrinsics K=P2[:3,:3], with full nonzero P2 translation retained as C2=-K^-1 P2[:,3]; X-Z is camera-2-centered predicted visible-surface geometry, not rectified-reference or label-box coordinates.",
+  "rectified": true,
+  "width": 1241
+}

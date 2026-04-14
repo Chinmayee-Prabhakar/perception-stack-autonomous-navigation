@@ -1,0 +1,69 @@
+{
+  "accepted_d1_manifest_sha256": "fbd1ec9e0c2fd706129ad051c42212ec391cd0775981e46e0b73b8239f7cb023",
+  "camera_xz": {
+    "pixel_sha256": "bdc93bb9374f13c0a92a356745806895310b1d07f05ec7118eaebb09cf682c83",
+    "size": [
+      1080,
+      840
+    ]
+  },
+  "overlays": {
+    "000185": {
+      "pixel_sha256": "a21a78cd753c4307c0b93107cd5a216ff1a26cffd5f2e55d2493b1b7b9cc6793",
+      "size": [
+        1242,
+        637
+      ]
+    },
+    "000201": {
+      "pixel_sha256": "5ff23028dacccb36395cf8cb9cafc967caf1bfbc2126a497bfe9342ea020a06e",
+      "size": [
+        1242,
+        691
+      ]
+    },
+    "003783": {
+      "pixel_sha256": "50db56f4f5c65214561edff83b6f49f0818d229cb106540fbacc624906716b75",
+      "size": [
+        1242,
+        556
+      ]
+    },
+    "005481": {
+      "pixel_sha256": "7aa363677efdb82ae2b05b36dbf79c56722d22df687ff1bf8c34d59264fa3602",
+      "size": [
+        1242,
+        637
+      ]
+    },
+    "006263": {
+      "pixel_sha256": "6854a16b1e58ebb0a25a9b9614d728f426d14bf2e84d15e2465d4cc09c816d34",
+      "size": [
+        1242,
+        610
+      ]
+    },
+    "006781": {
+      "pixel_sha256": "cca5aeee86152f489beb5a8c7a49188da811228dc7edc370ef3789fc47c57514",
+      "size": [
+        1241,
+        638
+      ]
+    },
+    "006781_calibrated": {
+      "pixel_sha256": "cca5aeee86152f489beb5a8c7a49188da811228dc7edc370ef3789fc47c57514",
+      "size": [
+        1241,
+        638
+      ]
+    },
+    "007200": {
+      "pixel_sha256": "581575095466600e82ddb1fecd51425fa136a13290cfd771ad82d74e0250d6a9",
+      "size": [
+        1242,
+        637
+      ]
+    }
+  },
+  "schema": "demo_hardening_presentation_r2_v1"
+}

@@ -1,0 +1,361 @@
+{
+  "inputs": {
+    "000185": {
+      "sha256": "9dc0d7bc9798629587a7080365e51472a3b1c22feac4d0c0699639e9b7359a44",
+      "size": [
+        1242,
+        375
+      ]
+    },
+    "000201": {
+      "sha256": "3bd486a5fb45f2b31845d306536f9c0daec2c9e0378724bb81bc0b2952863b95",
+      "size": [
+        1242,
+        375
+      ]
+    },
+    "003783": {
+      "sha256": "222df6ec8abbb9b4ff9563c5779aca1d47c88425fa4fbeadcfb598914ebed746",
+      "size": [
+        1242,
+        375
+      ]
+    },
+    "005481": {
+      "sha256": "91ca5d9593ee1a4b842f234234798a1a06f914efe2c1681f19e3e94faf23c88a",
+      "size": [
+        1242,
+        375
+      ]
+    },
+    "006263": {
+      "sha256": "151fa176dc3ce92b8ea54b1eb03bb50e34f7d6660d809965e404c871e019290a",
+      "size": [
+        1242,
+        375
+      ]
+    },
+    "006781": {
+      "sha256": "fdb6e131042d2e4d738e828910b41dafc7687aaf9fcba371d6113cef6936d154",
+      "size": [
+        1241,
+        376
+      ]
+    },
+    "007200": {
+      "sha256": "751257846d151f944fa6bf5381f804f790522d1c74df698489fd7c099d44cfe0",
+      "size": [
+        1242,
+        375
+      ]
+    }
+  },
+  "scenes": {
+    "000185": {
+      "adjacency_states": [
+        "unknown_insufficient_coverage",
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected"
+      ],
+      "detections": 7,
+      "drivable_mask": {
+        "foreground_pixels": 47370,
+        "pixel_sha256": "62679b87c092df55a17a3c6b6b21ccda01634d0afc0d551bb2f53b31531d9928",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "drivable_pixels": 47370,
+      "lane_mask": {
+        "foreground_pixels": 277,
+        "pixel_sha256": "ac51575fda10eeb941959fdc46c5d207d91b6c697a94914d380cf1d32ab15ae8",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "lane_pixels": 277,
+      "overlay": {
+        "pixel_sha256": "b0fef3f53c99b8a8b8a472c33dd024fc566eb5b94252e85a0ffdbd1fb3a9a1f5",
+        "size": [
+          1242,
+          576
+        ]
+      },
+      "road_association_sha256": "67c914a939a87538a13809aed5a30445ea3d6eed051600099692c40bd31e21f0",
+      "scientific_scene_sha256": "2e859c646a72c8617afe6f3ca7eac94ffe25474f0addd7d2241c492bb53fb0a8"
+    },
+    "000201": {
+      "adjacency_states": [
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_detected",
+        "drivable_adjacency_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_detected"
+      ],
+      "detections": 12,
+      "drivable_mask": {
+        "foreground_pixels": 77688,
+        "pixel_sha256": "91a0a73d12ab2086ef5cca17df8987bfaba71f7fcc7fd959922ba34ab1d4d197",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "drivable_pixels": 77688,
+      "lane_mask": {
+        "foreground_pixels": 883,
+        "pixel_sha256": "04d69de63970d6143a8da636982a76807690fe37c3e773799c091ba115e5f040",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "lane_pixels": 883,
+      "overlay": {
+        "pixel_sha256": "8797f1e15a89f6f6e734c36cf85c139db0cf0169d9a715aa579293bd23df0196",
+        "size": [
+          1242,
+          603
+        ]
+      },
+      "road_association_sha256": "54875f3bfad0f9803eb7ce7ba4211948d64552c279ab41a2fe9f008e855b71d8",
+      "scientific_scene_sha256": "d573b602586a169a60cae8264116c08bdeb850ed25557b684f007bc3fe0b5bbe"
+    },
+    "003783": {
+      "adjacency_states": [
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected"
+      ],
+      "detections": 2,
+      "drivable_mask": {
+        "foreground_pixels": 57594,
+        "pixel_sha256": "1e25599fcfabd05bef45d39c7f0d8d7cf630c9991b1a14140d0e4d5842e75b82",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "drivable_pixels": 57594,
+      "lane_mask": {
+        "foreground_pixels": 0,
+        "pixel_sha256": "4b70c4157c124922cc5150d1a35e540fb16b86bb22fc188185043a4bc269e0e7",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "lane_pixels": 0,
+      "overlay": {
+        "pixel_sha256": "067280fd852f304b50ac02a82e420622f6d36bfefe4b87dafb5487210df0d1a8",
+        "size": [
+          1242,
+          522
+        ]
+      },
+      "road_association_sha256": "18324c52b488920d696677a423e5dac3afc0f4fa8cbbb6611973e116fba1cab5",
+      "scientific_scene_sha256": "48c81b9f523a9c63213f24ebbfe21b9ec356681993eb4034cb8a47195985c017"
+    },
+    "005481": {
+      "adjacency_states": [
+        "unknown_insufficient_coverage",
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected"
+      ],
+      "detections": 8,
+      "drivable_mask": {
+        "foreground_pixels": 45633,
+        "pixel_sha256": "d748cca6c7503f60892191bef1971289db3a89319bcdbce2be85de78dba3ed57",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "drivable_pixels": 45633,
+      "lane_mask": {
+        "foreground_pixels": 363,
+        "pixel_sha256": "42b43e3bfff8f9976a4285737009fc8188ec27c104927c35c7045e0f22f7c7cd",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "lane_pixels": 363,
+      "overlay": {
+        "pixel_sha256": "dc970a9ad93fcaa44cf691e23a0299e782c3dd16a3bd49d59744970ca23e1ed3",
+        "size": [
+          1242,
+          576
+        ]
+      },
+      "road_association_sha256": "8802d799fd010c35abb965022d66fcd74c13775bb6c23f761b4606349a58b007",
+      "scientific_scene_sha256": "79574d2ce9b520c0d668edca973cbe45c5647b4b1393e7e997264fa933321832"
+    },
+    "006263": {
+      "adjacency_states": [
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected"
+      ],
+      "detections": 5,
+      "drivable_mask": {
+        "foreground_pixels": 71954,
+        "pixel_sha256": "e2fbb181b0e6ee6772f6c8c3bdf2c6cee0a80853156147cb83af5dc6938e56b6",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "drivable_pixels": 71954,
+      "lane_mask": {
+        "foreground_pixels": 536,
+        "pixel_sha256": "83e7fb1f2ee6151c042b35e9faddf74eb4c856ed77a66cab3488ea78be9dde8e",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "lane_pixels": 536,
+      "overlay": {
+        "pixel_sha256": "05597c890852b564bc95d64dc1c697dc89ee1272528aba65af94b9440ba9a778",
+        "size": [
+          1242,
+          549
+        ]
+      },
+      "road_association_sha256": "67dd6f54c01501b09d779254710a1b2176385ebd69a12c28de0665ce5ab40a9e",
+      "scientific_scene_sha256": "b7358ece642b23a41baaa332e46610268f52ea6dcff21400a18464882796be66"
+    },
+    "006781": {
+      "adjacency_states": [
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_not_detected"
+      ],
+      "detections": 8,
+      "drivable_mask": {
+        "foreground_pixels": 32969,
+        "pixel_sha256": "d73edd76e68994efb0e97c710eed97d88a32e06c75f0488405da567d279b7963",
+        "size": [
+          1241,
+          376
+        ]
+      },
+      "drivable_pixels": 32969,
+      "lane_mask": {
+        "foreground_pixels": 2908,
+        "pixel_sha256": "2d7d6d7b4b84707d942376e07fd35fe491d56b1936edc4dbd0c6427b559dfbb9",
+        "size": [
+          1241,
+          376
+        ]
+      },
+      "lane_pixels": 2908,
+      "overlay": {
+        "pixel_sha256": "b6e9a6e03c35e283a04f5e15576130935e0df30fe8ad30fb263430d30ca59453",
+        "size": [
+          1241,
+          577
+        ]
+      },
+      "road_association_sha256": "c26c5f1d9fd75fcc61c270f9ccb86f6733847275c2da711fcd2ee996a2b2759d",
+      "scientific_scene_sha256": "627fed72e6c5f98abf00e38d049cd6d0dd7e9e5d6ab6abe04c7184358fc8c1dd"
+    },
+    "006781_calibrated": {
+      "adjacency_states": [
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_not_detected"
+      ],
+      "camera_xz": {
+        "pixel_sha256": "bdc93bb9374f13c0a92a356745806895310b1d07f05ec7118eaebb09cf682c83",
+        "size": [
+          1080,
+          840
+        ]
+      },
+      "detections": 8,
+      "drivable_pixels": 32969,
+      "lane_pixels": 2908,
+      "overlay": {
+        "pixel_sha256": "b6e9a6e03c35e283a04f5e15576130935e0df30fe8ad30fb263430d30ca59453",
+        "size": [
+          1241,
+          577
+        ]
+      },
+      "road_association_sha256": "c26c5f1d9fd75fcc61c270f9ccb86f6733847275c2da711fcd2ee996a2b2759d",
+      "scientific_scene_sha256": "c714557aef4144dc5be7ac360f73ff75b4e0a1ef578f98bcf570ff0c048eb77b"
+    },
+    "007200": {
+      "adjacency_states": [
+        "unknown_insufficient_coverage",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected",
+        "drivable_adjacency_not_detected"
+      ],
+      "detections": 8,
+      "drivable_mask": {
+        "foreground_pixels": 69924,
+        "pixel_sha256": "dc18e1c7ccbf02a4dda2daa4fe625be3fae52cc1e38bc802d23e051fb6b38ab7",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "drivable_pixels": 69924,
+      "lane_mask": {
+        "foreground_pixels": 524,
+        "pixel_sha256": "7618e5f675852202a86b104fbd6257bb5ea9b1a11e1759e1d37be16d2a6facb3",
+        "size": [
+          1242,
+          375
+        ]
+      },
+      "lane_pixels": 524,
+      "overlay": {
+        "pixel_sha256": "df968b815ecfe4e18f43af343ffef95d61b05dd9285337c3d75734452930b056",
+        "size": [
+          1242,
+          576
+        ]
+      },
+      "road_association_sha256": "624e1471fc5548248d349ab3b9a463f6771830af7fbf7300b6e9fd51c105b514",
+      "scientific_scene_sha256": "6e0636b464b03b62160d20baf4e34f53e4b18f63e5ad0e1430fc0e59dcdbcc1b"
+    }
+  },
+  "schema": "demo_hardening_expected_v1"
+}

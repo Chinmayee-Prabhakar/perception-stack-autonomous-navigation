@@ -1,0 +1,112 @@
+{
+  "camera2_center_in_rectified_reference_m": [
+    -0.059938577872451784,
+    0.0011311859112919694,
+    -0.003779761
+  ],
+  "factorization": "P2 = K [I | -C2]; camera2 XYZ = rectified-reference XYZ - C2",
+  "frame_id": "006781",
+  "image_size": [
+    1241,
+    376
+  ],
+  "interpretation": "Derived camera-2 pinhole rays are calibrated; surface Z values remain monocular predictions and are not KITTI bottom-center label coordinates.",
+  "max_test_ray_reprojection_residual_px": 2.2737367544323206e-13,
+  "p2_full": [
+    [
+      718.856,
+      0.0,
+      607.1928,
+      45.38225
+    ],
+    [
+      0.0,
+      718.856,
+      185.2157,
+      -0.1130887
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.003779761
+    ]
+  ],
+  "r0_rect": [
+    [
+      0.9999454,
+      0.007259129,
+      -0.007519551
+    ],
+    [
+      -0.007292213,
+      0.9999638,
+      -0.004381729
+    ],
+    [
+      0.007487471,
+      0.004436324,
+      0.9999621
+    ]
+  ],
+  "source_calibration": "datasets/kitti_object/training/calib/006781.txt",
+  "source_calibration_sha256": "fb6bcd5a19b22fc705e196f892ce346f77bb095f8b98215906126b71c9d52b73",
+  "test_rays": [
+    {
+      "pixel_uv": [
+        0,
+        0
+      ],
+      "predicted_camera2_axis_z_test_m": 10,
+      "reprojected_uv_full_p2": [
+        1.2505552149377764e-13,
+        2.2737367544323207e-14
+      ],
+      "residual_px": 1.2710574864626038e-13
+    },
+    {
+      "pixel_uv": [
+        620,
+        188
+      ],
+      "predicted_camera2_axis_z_test_m": 20,
+      "reprojected_uv_full_p2": [
+        620.0,
+        188.0
+      ],
+      "residual_px": 0.0
+    },
+    {
+      "pixel_uv": [
+        1240,
+        375
+      ],
+      "predicted_camera2_axis_z_test_m": 35,
+      "reprojected_uv_full_p2": [
+        1240.0000000000002,
+        375.0
+      ],
+      "residual_px": 2.2737367544323206e-13
+    }
+  ],
+  "tr_velo_to_cam": [
+    [
+      0.007967514,
+      -0.9999679,
+      -0.0008462264,
+      -0.01377769
+    ],
+    [
+      -0.002771053,
+      0.000824171,
+      -0.9999958,
+      -0.05542117
+    ],
+    [
+      0.9999644,
+      0.007969825,
+      -0.002764397,
+      -0.2918589
+    ]
+  ]
+}
