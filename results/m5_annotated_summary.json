@@ -1,0 +1,56 @@
+{
+  "actual_images_tested": 256,
+  "actual_objects_tested": 785,
+  "class_mapping_sha256": "8aca8100bd2798d8398ab5aa69c6b70623e0ba166e3536bb1a3c2ad9156f2052",
+  "counts": {
+    "eligible_detections": 1234,
+    "eligible_references": 1157,
+    "frames_processed": 256,
+    "ignored_detections": 236,
+    "ignored_references": 642,
+    "matched_pairs": 785,
+    "total_detections": 1415,
+    "total_references": 1799,
+    "unmatched_detections": 213,
+    "unmatched_references": 372,
+    "unsupported_detections": 181
+  },
+  "frame_bootstrap_mean_difference_95_ci": {
+    "distinct_frames": 240,
+    "mean_difference_95_percentile_ci_m": [
+      0.06018915717940205,
+      0.21483194395803618
+    ],
+    "replicates": 1000,
+    "required_frames": 10,
+    "resampling_unit": "frame",
+    "seed": 549,
+    "status": "ok"
+  },
+  "primary_paired": {
+    "box": {
+      "mean_absolute_proxy_error_m": 3.703178461718711,
+      "median_absolute_proxy_error_m": 2.4155134582519544,
+      "rmse_object_reference_z_proxy_m": 5.433070701523408,
+      "signed_mean_proxy_bias_m": 3.1404668264449787
+    },
+    "box_lower_error_percent": 45.98726114649681,
+    "mask": {
+      "mean_absolute_proxy_error_m": 3.836928832983515,
+      "median_absolute_proxy_error_m": 2.5193955612182624,
+      "rmse_object_reference_z_proxy_m": 5.630032002097381,
+      "signed_mean_proxy_bias_m": 3.36120013554081
+    },
+    "mask_lower_error_percent": 53.88535031847134,
+    "mean_mask_minus_box_absolute_proxy_error_m": 0.13375037126480396,
+    "median_mask_minus_box_absolute_proxy_error_m": -0.016851425170898438,
+    "paired_objects": 785,
+    "tie_percent": 0.12738853503184713
+  },
+  "protocol_sha256": "3ef1607773bd1ec717996952d1d238d4f1689dc2d53342202fd62d2ced0091ac",
+  "reference": "KITTI annotated 3D-box bottom-center camera Z",
+  "schema": "public_m5_annotated_summary_v1",
+  "source_sha256": "23db5534a72ea360bd1f1006f10f956178e66125e3cdb575652bfc5c7e11c568",
+  "split_limitation": "unavailable; hashed frame IDs may contain related drive frames in both subsets",
+  "status": "computed"
+}

@@ -1,0 +1,108 @@
+{
+  "files": {
+    "docs/figures/architecture.png": {
+      "bytes": 68359,
+      "public_sha256": "c6f5d0d89975adac25663c5e5b40c6b2dd1ccb17d27edd3b38be71ba343eb860",
+      "source": "outputs/kitti_m5_l4/figures/architecture.png",
+      "source_sha256": "c6f5d0d89975adac25663c5e5b40c6b2dd1ccb17d27edd3b38be71ba343eb860",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/drive_weighting.png": {
+      "bytes": 60145,
+      "public_sha256": "845c318841912a7a677fe1476cb72a03ef2370a8704902fd5071793cf7a2cc33",
+      "source": "outputs/kitti_m5_l4/figures/drive_weighting.png",
+      "source_sha256": "845c318841912a7a677fe1476cb72a03ef2370a8704902fd5071793cf7a2cc33",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/integrated_scene_000201.png": {
+      "bytes": 842761,
+      "public_sha256": "3f51295221353b5407f94420572286df759b5d4f7fb6eb1207dec1e889c6d403",
+      "source": "outputs/demo_hardening_r2/regenerated/scenes/000201/overlay.png",
+      "source_sha256": "3f51295221353b5407f94420572286df759b5d4f7fb6eb1207dec1e889c6d403",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/lidar_coverage.png": {
+      "bytes": 73174,
+      "public_sha256": "889cad9d587b070d6b5e7debb869787142714a0cfe7abf05fa658bfe3dd700b2",
+      "source": "outputs/kitti_m5_l4/figures/lidar_coverage.png",
+      "source_sha256": "889cad9d587b070d6b5e7debb869787142714a0cfe7abf05fa658bfe3dd700b2",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/lidar_projection_007111.png": {
+      "bytes": 749914,
+      "public_sha256": "8a4efc11e18cde5bc0c97d1622d5f8a9994df0ee74edcb1c51ad984338009f1b",
+      "source": "outputs/kitti_m5_l3/heldout/visuals/projection_007111.png",
+      "source_sha256": "8a4efc11e18cde5bc0c97d1622d5f8a9994df0ee74edcb1c51ad984338009f1b",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/m5_annotated_reference_mae.png": {
+      "bytes": 50777,
+      "public_sha256": "87f96b81c231364490760f48c7ab40d07be00295f68ca877453c47eeaad08aed",
+      "source": "outputs/kitti_m5_l4/figures/m5_annotated_reference_mae.png",
+      "source_sha256": "87f96b81c231364490760f48c7ab40d07be00295f68ca877453c47eeaad08aed",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/m5_l3_sparse_reference_mae.png": {
+      "bytes": 49642,
+      "public_sha256": "f827fbdde312104565a91e836d82d8e99d0c529b37ec70da1a53d0ba8276b59f",
+      "source": "outputs/kitti_m5_l4/figures/m5_l3_sparse_reference_mae.png",
+      "source_sha256": "f827fbdde312104565a91e836d82d8e99d0c529b37ec70da1a53d0ba8276b59f",
+      "transformation": "byte-identical copy"
+    },
+    "docs/figures/paired_difference_distribution.png": {
+      "bytes": 136066,
+      "public_sha256": "d251fc9fc392cc02902c4d1e31c757c1aff8b58c587c94cdfc78b161601021de",
+      "source": "outputs/kitti_m5_l4/figures/paired_difference_distribution.png",
+      "source_sha256": "d251fc9fc392cc02902c4d1e31c757c1aff8b58c587c94cdfc78b161601021de",
+      "transformation": "byte-identical copy"
+    },
+    "results/m5_annotated_pairs.csv": {
+      "bytes": 182232,
+      "public_sha256": "956a2805317394660c3224ed9a2c0b17bda71acc1baecef367b2899d45bc9871",
+      "source": "outputs/kitti_m5/heldout/paired_object_results.csv",
+      "source_sha256": "956a2805317394660c3224ed9a2c0b17bda71acc1baecef367b2899d45bc9871",
+      "transformation": "byte-identical copy"
+    },
+    "results/m5_annotated_summary.json": {
+      "bytes": 2128,
+      "public_sha256": "2287996d4d4ded69350ef9d64fddd790c624fd7d4faa69f7775a7f005f061590",
+      "selected_fields": [
+        "actual_images_tested",
+        "actual_objects_tested",
+        "counts",
+        "primary_paired",
+        "frame_bootstrap_mean_difference_95_ci",
+        "protocol_sha256",
+        "class_mapping_sha256",
+        "split_limitation",
+        "status"
+      ],
+      "source": "outputs/kitti_m5/heldout/summary_metrics.json",
+      "source_sha256": "23db5534a72ea360bd1f1006f10f956178e66125e3cdb575652bfc5c7e11c568",
+      "transformation": "selected fields unchanged; omitted per-frame inference timings, local plot paths, exploratory subgroups and other audit-only fields"
+    },
+    "results/m5_l3_coverage.json": {
+      "bytes": 10915,
+      "public_sha256": "87eca46c91c6d0cdf7c8b56b5c037437ea569e07571bf185f8da5d6cea3e1fbc",
+      "source": "outputs/kitti_m5_l3/heldout/coverage_summary.json",
+      "source_sha256": "87eca46c91c6d0cdf7c8b56b5c037437ea569e07571bf185f8da5d6cea3e1fbc",
+      "transformation": "byte-identical copy"
+    },
+    "results/m5_l3_sparse_pairs.csv": {
+      "bytes": 163059,
+      "public_sha256": "21e118a3b94f8fd860b847c5f7f786376d3c851622c7b1408c0c3e7703a22b4c",
+      "source": "outputs/kitti_m5_l3/heldout/paired_evaluation.csv",
+      "source_sha256": "21e118a3b94f8fd860b847c5f7f786376d3c851622c7b1408c0c3e7703a22b4c",
+      "transformation": "byte-identical copy"
+    },
+    "results/m5_l3_sparse_summary.json": {
+      "bytes": 19375,
+      "public_sha256": "f6f4876b9a79d7f9f76eb50267dd1f74272132d7d98e0336df8baf400be53a17",
+      "source": "outputs/kitti_m5_l3/heldout/statistical_summary.json",
+      "source_sha256": "f6f4876b9a79d7f9f76eb50267dd1f74272132d7d98e0336df8baf400be53a17",
+      "transformation": "byte-identical copy"
+    }
+  },
+  "schema": "public_artifact_manifest_v1",
+  "scope": "compact public evidence; not the full local audit archive"
+}

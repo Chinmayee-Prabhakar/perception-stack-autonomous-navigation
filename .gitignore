@@ -42,3 +42,13 @@ temp/
 *.blend[0-9]*
 blendcache_*/
 .DS_Store
+
+# Local handoff and portfolio-development material; retain outside publication.
+/AGENTS.md
+/FIRST_MESSAGE_CODEX.md
+/README_SETUP.md
+/handoff/
+/docs/portfolio/
+/scripts/build_m5_l4_portfolio.py
+/scripts/package_m5_l4_review.py
+/scripts/verify_m5_l4_portfolio.py

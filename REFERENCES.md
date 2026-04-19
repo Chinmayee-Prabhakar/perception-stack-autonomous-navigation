@@ -1,6 +1,7 @@
 # References and provenance
 
-- [Project 3, “Einstein Vision,”](https://rbe549.github.io/spring2023/proj/p3/) from WPI's RBE/CS 549 Computer Vision course, taught by Prof. Nitin J. Sanket. This assignment inspired the driving-scene integration objective.
+- [WPI RBE/CS 549 Computer Vision course](https://pear.wpi.edu/teaching/rbe549/spring2023.html): official course page identifying Prof. Nitin J. Sanket as instructor.
+- [Project 3, “Einstein Vision”](https://rbe549.github.io/spring2023/proj/p3/): official open-ended driving-scene visualization assignment that inspired the project objective. This implementation does not claim to cover every assignment feature or to be an assessed course submission.
 - [Ultralytics YOLO11 model documentation](https://docs.ultralytics.com/models/yolo11): official COCO-pretrained `yolo11n-seg.pt` instance segmentation checkpoint and model variants.
 - [Ultralytics segmentation task documentation](https://docs.ultralytics.com/tasks/segment): mask output and inference API.
 - [Ultralytics licensing guidance](https://docs.ultralytics.com/help/contributing/): AGPL-3.0 / enterprise terms for the framework and weights.

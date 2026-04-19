@@ -1,0 +1,3 @@
+# Preserve byte-hashed protocol and public result files across checkouts.
+/configs/kitti_lidar_protocol_v1.json -text
+/results/* -text
